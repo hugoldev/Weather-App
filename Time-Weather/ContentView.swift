@@ -10,27 +10,9 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, Color("LightBlue")]),
-                           startPoint: .topLeading,
-                           endPoint: .bottomLeading)
-            .edgesIgnoringSafeArea(.all)
+            BackgroundColor(topColor: .blue, bottomColor: Color("LightBlue"))
             VStack {
-                Text("Sanclerlãndia, GO")
-                    .font(.system(size: 32, weight: .medium, design: .default))
-                    .foregroundColor(.white)
-                    .padding()
-                VStack {
-                    Image(systemName: "cloud.sun.fill")
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 180, height: 180)
-                    Text("28°c")
-                        .font(.system(size: 70, weight: .medium))
-                        .foregroundColor(.white)
-                        .padding()
-                }
-                .padding(.bottom, 40)
+                WeatherCity(CityName: "Sanclerlãndia", ImageName: "cloud.sun.fill", temperature: 28)
                 
                 HStack(spacing: 20) {
                     WeatherDayView(dayOfWeek: "TUE",
@@ -54,7 +36,7 @@ struct ContentView: View {
                 Button {
                     print ("tapped")
                 } label: {
-                    Text ("Change Day Time")
+                    Text ("Select City")
                         .frame (width: 280, height: 50)
                         .background (Color.white)
                         .font (.system(size: 20, weight: .bold, design: .default))
@@ -70,30 +52,72 @@ struct ContentView: View {
             ContentView()
         }
     }
-}
-
-struct WeatherDayView: View {
     
-    var dayOfWeek: String
-    var imageName: String
-    var temperature: Int
     
-    var body: some View {
-        VStack {
-            
-            Text(dayOfWeek)
-                .foregroundColor(.white)
-                .font(.system(size: 16, weight: .medium, design: .default))
-            
-            Image(systemName: imageName)
-                .resizable()
-                .renderingMode(.original)
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
-            Text("\(temperature)°c")
-                .font(.system(size: 17, weight: .medium))
-                .foregroundColor(.white)
+    struct WeatherDayView: View {
+        
+        var dayOfWeek: String
+        var imageName: String
+        var temperature: Int
+        
+        var body: some View {
+            VStack {
                 
+                Text(dayOfWeek)
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .medium, design: .default))
+                
+                Image(systemName: imageName)
+                    .resizable()
+                    .renderingMode(.original)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
+                Text("\(temperature)°c")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundColor(.white)
+                
+            }
         }
     }
-}
+    
+    struct WeatherCity: View {
+        
+        var CityName: String
+        var ImageName: String
+        var temperature: Int
+        
+        var body: some View {
+            VStack {
+                Text(CityName)
+                    .font(.system(size: 32, weight: .medium, design: .default))
+                    .foregroundColor(.white)
+                    .padding()
+                VStack {
+                    Image(systemName: ImageName)
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 180, height: 180)
+                    Text("\(temperature)°c")
+                        .font(.system(size: 70, weight: .medium))
+                        .foregroundColor(.white)
+                        .padding()
+                }
+                .padding(.bottom, 40)
+            }
+        }
+    }
+    struct BackgroundColor: View {
+        
+        var topColor: Color
+        var bottomColor: Color
+        
+        var body: some View {
+            
+            LinearGradient (gradient: Gradient(colors: [topColor, bottomColor]),
+                            startPoint: .topLeading, endPoint: .bottomTrailing)
+            .edgesIgnoringSafeArea(.all)
+                    }
+                }
+            }
+        
